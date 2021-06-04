@@ -5,40 +5,44 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.hrms.business.abstracts.JobsService;
+import com.example.hrms.business.abstracts.EmployersService;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.Result;
+import com.example.hrms.entities.concretes.Employers;
 import com.example.hrms.entities.concretes.Jobs;
 
 @RestController
-@RequestMapping("/api/jobs")
-public class JobsController {
+@RequestMapping("/api/employers")
+public class EmployersControllers {
 
-	private JobsService jobservice;
-
-	public JobsController() {
-		super();
-	}
+	private EmployersService employersService;
 
 	@Autowired
-	public JobsController(JobsService jobservice) {
+	public EmployersControllers(EmployersService employersService) {
 		super();
-		this.jobservice = jobservice;
+		this.employersService = employersService;
 	}
+	
 
 	@GetMapping("/getall") // yukarıda belirttiğim alan için bu komut çalışırsa burası çalışacak
-	public DataResult<List<Jobs>> getAll() {
+	public DataResult<List<Employers>> getAll() {
 
-     return this.jobservice.getAll();
+     return this.employersService.getAllEmployers();
+	}
+	
+	@GetMapping("/getByEmail")
+	public DataResult<Employers> getByEmail(String email){
+		return this.employersService.getByEmail(email);
+		
 	}
 	
 	@PostMapping("/add")
-	public Result add(@RequestBody Jobs jobs) {
-		return this.jobservice.addJob(jobs);
+	public Result addEmployers(Employers employers) {
+	 return this.employersService.addEmpployer(employers);
+		
 	}
 	
 }

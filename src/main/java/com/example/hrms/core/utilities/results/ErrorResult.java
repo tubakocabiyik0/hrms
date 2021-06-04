@@ -7,7 +7,7 @@ public class ErrorResult extends Result {
 		
 	}
 
-	public ErrorResult(boolean isSuccess,String message) {
+	public ErrorResult(String message) {
 		super(false,message);
 		
 	}
